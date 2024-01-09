@@ -5,6 +5,7 @@ import 'package:path_provider/path_provider.dart';
 class IsarService {
   late Future<Isar> db;
 
+// constructor to open databse
   IsarService() {
     db = openDb();
   }
