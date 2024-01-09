@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:for_students/services/crud/isar_databses/notices.dart';
 import 'package:for_students/services/crud/services/isar_service.dart';
+import 'package:for_students/views/user/announcement_cards.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MainPage extends StatefulWidget {
@@ -105,34 +106,25 @@ class _MainPageState extends State<MainPage> {
             height: 160,
             child: StreamBuilder<List<Notices>>(
               stream: IsarService().listenToNotices(),
-              builder: (context, snapshot) => GridView.count(
-                physics: const ScrollPhysics(),
-                crossAxisCount: 1,
-                mainAxisSpacing: 5,
-                scrollDirection: Axis.horizontal,
-                children: snapshot.hasData
-                    ? snapshot.data!.map(
-                        (notice) {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.lightBlue,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  notice.notice!,
-                                  softWrap: true,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      ).toList()
-                    : [],
-              ),
+              builder: (context, snapshot) {
+                switch (snapshot.connectionState) {
+                  // in case of a continious strem we dont wait for it to complete as it never completes
+                  // because it is a stream of continious data
+
+                  case ConnectionState.waiting:
+                  case ConnectionState.active:
+                    if (snapshot.hasData) {
+                      final allAnnouncements =
+                          snapshot.data as Iterable<Notices>;
+                      return AnnouncementListView(
+                          announcements: allAnnouncements);
+                    } else {
+                      return const CircularProgressIndicator();
+                    }
+                  default:
+                    return const CircularProgressIndicator();
+                }
+              },
             ),
           ),
 
