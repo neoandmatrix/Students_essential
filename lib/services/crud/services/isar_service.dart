@@ -16,7 +16,7 @@ class IsarService {
 
   Stream<List<Notices>> listenToNotices() async* {
     final isar = await db;
-    yield* isar.notices.where().watch();
+    yield* isar.notices.where().watch(fireImmediately: true);
   }
 
   Future<List<Notices>> getAllCourses() async {
