@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "281299819563",
+    "project_id": "all-in-one-students-app",
+    "storage_bucket": "all-in-one-students-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:281299819563:android:fe22a957f9558b6869de6e",
+        "android_client_info": {
+          "package_name": "com.example.for_students"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxuvFQMB4TC0DHYrjA8QYjDgU-HaNsi7I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
