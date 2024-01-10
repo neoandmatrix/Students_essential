@@ -22,8 +22,11 @@ class AnnouncementListView extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Center(
             child: GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushNamed('/updateNotice',arguments: announcement);
+              },
               onDoubleTap: () async {
-                IsarService().deleteNotice(announcement.id);
+                await IsarService().deleteNotice(announcement.id);
               },
               child: Container(
                 height: 145,
@@ -36,11 +39,11 @@ class AnnouncementListView extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     style: GoogleFonts.bebasNeue(fontSize: 20),
-                      maxLines:4,
-                      announcement.notice!,
-                      softWrap: true,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                    maxLines: 4,
+                    announcement.notice!,
+                    softWrap: true,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ),
             ),

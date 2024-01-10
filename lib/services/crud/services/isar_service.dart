@@ -1,4 +1,5 @@
 import 'package:for_students/services/crud/isar_databses/notices.dart';
+import 'package:for_students/services/crud/services/iasr_exceptions.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -12,14 +13,26 @@ class IsarService {
 
   Future<void> saveNotice(Notices notice) async {
     final isar = await db;
-    isar.writeTxnSync(() => isar.notices.putSync(notice));
+    isar.writeTxn(() async => await isar.notices.put(notice));
+  }
+
+  Future<void> updateNotice(Notices updatedNotice) async {
+    final isar = await db;
+    isar.writeTxn(() async => await isar.notices.put(updatedNotice));
   }
 
   Future<void> deleteNotice(int noticeId) async {
     final isar = await db;
-    await isar.writeTxn(() async => await isar.notices.delete(noticeId));
+    await isar.writeTxn(() async {
+      try {
+        await isar.notices.delete(noticeId);
+      } catch (e) {
+        throw CouldNotDeleteAnnouncementException();
+      }
+    });
   }
 
+// stream
   Stream<List<Notices>> listenToNotices() async* {
     final isar = await db;
     yield* isar.notices.where().watch(fireImmediately: true);
@@ -30,6 +43,7 @@ class IsarService {
     return await isar.notices.where().findAll();
   }
 
+//open database
   Future<Isar> openDb() async {
     final dir = await getApplicationDocumentsDirectory();
 

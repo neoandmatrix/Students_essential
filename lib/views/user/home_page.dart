@@ -110,7 +110,6 @@ class _MainPageState extends State<MainPage> {
                 switch (snapshot.connectionState) {
                   // in case of a continious strem we dont wait for it to complete as it never completes
                   // because it is a stream of continious data
-
                   case ConnectionState.waiting:
                   case ConnectionState.active:
                     if (snapshot.hasData) {
