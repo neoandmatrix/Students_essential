@@ -15,6 +15,11 @@ class IsarService {
     isar.writeTxnSync(() => isar.notices.putSync(notice));
   }
 
+  Future<void> deleteNotice(int noticeId) async {
+    final isar = await db;
+    await isar.writeTxn(() async => await isar.notices.delete(noticeId));
+  }
+
   Stream<List<Notices>> listenToNotices() async* {
     final isar = await db;
     yield* isar.notices.where().watch(fireImmediately: true);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:for_students/services/crud/isar_databses/notices.dart';
 import 'package:for_students/services/crud/services/isar_service.dart';
-import 'package:for_students/views/user/announcement_cards.dart';
+import 'package:for_students/views/user/announcements/announcement_cards.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MainPage extends StatefulWidget {
@@ -132,7 +132,7 @@ class _MainPageState extends State<MainPage> {
           Padding(
             padding: const EdgeInsets.only(top: 5, left: 22),
             child: Text(
-              "M-UMS NOTICES",
+              "NOTICES",
               style: GoogleFonts.bebasNeue(
                 color: Colors.indigo,
                 fontSize: 35,

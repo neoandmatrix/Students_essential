@@ -4,7 +4,7 @@ import 'package:for_students/components/ui_components/navigation_bar.dart';
 import 'package:for_students/services/crud/services/isar_service.dart';
 import 'package:for_students/views/auth/register_page.dart';
 import 'package:for_students/views/auth/veify_email_page.dart';
-import 'package:for_students/views/user/add_ar_anouncements_page.dart';
+import 'package:for_students/views/user/announcements/add_cr_anouncements_page.dart';
 //import 'package:for_students/views/home_page.dart';
 
 void main() {
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       },
       debugShowCheckedModeBanner: false,
       title: 'myapp',
-      home: const MyNavigationBar(),
+      home: const MyNavigationBar() ,
       theme: ThemeData(useMaterial3: true),
     );
   }
