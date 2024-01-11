@@ -10,7 +10,7 @@ A new Flutter project to provide the services most comminly used by students at 
 
 # usage
 
--[ ]calender view
+1. calender view
 -[ ]on tapping the headings "cr announcemt" , "notices" all the notices should open
 -[ ]online sync and user profiles
 -[ ]dark mode
