@@ -15,4 +15,4 @@ A new Flutter project to provide the services most comminly used by students at 
 3. online sync and user profiles
 4. dark mode
 5. events and personal budegt management sytem
-- [ ] a socials pannel where students can showcase projects built by them or ther are currently working on it
+6. a socials pannel where students can showcase projects built by them or ther are currently working on it
