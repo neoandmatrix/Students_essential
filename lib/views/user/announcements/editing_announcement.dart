@@ -25,7 +25,14 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
   }
 
   @override
+  void dispose() {
+    _notice.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+   
     final currentAnnouncement = context.getArgument<Notices>();
     if (currentAnnouncement != null) {
       _announcement = currentAnnouncement;
@@ -90,10 +97,11 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
               backgroundColor: Colors.cyan.shade300,
               onPressed: () async {
                 if (_notice.text.isNotEmpty) {
+
                   currentAnnouncement?.notice = _notice.text;
-                  // ye khan se aayya?
                   widget.service.updateNotice(currentAnnouncement!);
-                } else if (_notice.text.isEmpty) {
+                } 
+                else if (_notice.text.isEmpty) {
                   widget.service.deleteNotice(currentAnnouncement!.id);
                 }
                 Navigator.of(context).pop();
