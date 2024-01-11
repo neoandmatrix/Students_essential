@@ -1,18 +1,18 @@
-### For_students
+# For_students
 
 A new Flutter project to provide the services most comminly used by students at one centarlized place
 
 ## features left to implement 
 
-# auth
--[ ]verify email view
--[ ]rset passord
+### auth
+1. verify email view
+2. reset passord
 
-# usage
+### usage
 
 1. calender view
 2. on tapping the headings "cr announcemt" , "notices" all the notices should open
--[ ]online sync and user profiles
--[ ]dark mode
--[ ]events and personal budegt management sytem
--[ ]a socials pannel where students can showcase projects built by them or ther are currently working on it
+3. online sync and user profiles
+4. dark mode
+5. events and personal budegt management sytem
+6. a socials pannel where students can showcase projects built by them or ther are currently working on it
