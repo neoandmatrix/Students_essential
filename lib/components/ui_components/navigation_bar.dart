@@ -11,7 +11,7 @@ class MyNavigationBar extends StatefulWidget {
 
 class _MyNavigationBarState extends State<MyNavigationBar> {
   int index = 0;
-  final screens = [const MainPage(), const CalenderView()];
+  final screens = [const MainPage(), const CalendarGrid()];
 
   @override
   Widget build(BuildContext context) {
