@@ -23,7 +23,8 @@ class AnnouncementListView extends StatelessWidget {
           child: Center(
             child: GestureDetector(
               onTap: () {
-                Navigator.of(context).pushNamed('/updateNotice',arguments: announcement);
+                Navigator.of(context)
+                    .pushNamed('/updateNotice', arguments: announcement);
               },
               onDoubleTap: () async {
                 await IsarService().deleteNotice(announcement.id);

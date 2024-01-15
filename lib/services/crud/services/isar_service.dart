@@ -1,3 +1,4 @@
+import 'package:for_students/services/crud/isar_databses/events_data.dart';
 import 'package:for_students/services/crud/isar_databses/notices.dart';
 import 'package:for_students/services/crud/services/iasr_exceptions.dart';
 import 'package:isar/isar.dart';
@@ -11,6 +12,7 @@ class IsarService {
     db = openDb();
   }
 
+// announcement related
   Future<void> saveNotice(Notices notice) async {
     final isar = await db;
     isar.writeTxn(() async => await isar.notices.put(notice));
@@ -38,9 +40,35 @@ class IsarService {
     yield* isar.notices.where().watch(fireImmediately: true);
   }
 
-  Future<List<Notices>> getAllCourses() async {
+  Future<List<Notices>> getAllNotices() async {
     final isar = await db;
     return await isar.notices.where().findAll();
+  }
+
+// events related
+
+// TODO : try to use callback
+  Future<void> putEventTitle(Events eventTitle) async {
+    final isar = await db;
+    isar.writeTxn(() async => await isar.events.put(eventTitle));
+  }
+
+  Future<void> putEventontent(Events eventContent) async {
+    final isar = await db;
+    isar.writeTxn(() async => await isar.events.put(eventContent));
+  }
+
+  Future<void> putTypeOfEvent(Events eventType) async {
+    final isar = await db;
+    isar.writeTxn(() async => await isar.events.put(eventType));
+  }
+
+  Future<List<Events?>> getEventTitle(DateTime selectedDateMonthYear) async {
+    final isar = await db;
+    return isar.events
+        .filter()
+        .dateAndTimeOfEventEqualTo(selectedDateMonthYear)
+        .findAll();
   }
 
 //open database
@@ -49,12 +77,15 @@ class IsarService {
 
     if (Isar.instanceNames.isEmpty) {
       return await Isar.open(
-        [NoticesSchema],
+        [NoticesSchema, EventsSchema],
         directory: dir.path,
         inspector: true,
+        name: 'announcement',
       );
     }
 
-    return Future.value(Isar.getInstance());
+    return Future.value(Isar.getInstance('announcement'));
   }
 }
+
+

@@ -6,6 +6,7 @@ import 'package:for_students/views/auth/register_page.dart';
 import 'package:for_students/views/auth/veify_email_page.dart';
 import 'package:for_students/views/user/announcements/add_cr_anouncements_page.dart';
 import 'package:for_students/views/user/announcements/editing_announcement.dart';
+import 'package:for_students/views/user/announcements/event_announcements.dart';
 //import 'package:for_students/views/home_page.dart';
 
 void main() {
@@ -18,7 +19,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   final service = IsarService();
-   MyApp({super.key});
+  MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +28,19 @@ class MyApp extends StatelessWidget {
         '/verifyEmail': (context) => const EmailVerifyView(),
         '/register': (context) => const RegisterPage(),
         '/main': (context) => const MyNavigationBar(),
-        '/crNotice': (context) => AnnounceToClassView(service: service,),
-        '/updateNotice' : (context) => EditAnnouncementView(service: service),
+        '/crNotice': (context) => AnnounceToClassView(
+              service: service,
+            ),
+        '/updateNotice': (context) => EditAnnouncementView(
+              service: service,
+            ),
+        '/eventAnnouncement': (context) => AddEventView(
+              service: service,
+            )
       },
       debugShowCheckedModeBanner: false,
       title: 'myapp',
-      home: const MyNavigationBar() ,
+      home: const MyNavigationBar(),
       theme: ThemeData(useMaterial3: true),
     );
   }

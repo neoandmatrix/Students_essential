@@ -1,49 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:for_students/components/get_arguments.dart';
 import 'package:for_students/services/crud/isar_databses/notices.dart';
 import 'package:for_students/services/crud/services/isar_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class EditAnnouncementView extends StatefulWidget {
+class AddEventView extends StatefulWidget {
   final IsarService service;
-  const EditAnnouncementView({super.key, required this.service});
+  const AddEventView({super.key, required this.service});
 
   @override
-  State<EditAnnouncementView> createState() => _EditAnnouncementViewState();
+  State<AddEventView> createState() => _AddEventViewState();
 }
 
-class _EditAnnouncementViewState extends State<EditAnnouncementView> {
-  // optional updated announcement
-  Notices? _announcement;
-
-  late final TextEditingController _notice;
+class _AddEventViewState extends State<AddEventView> {
+  late final TextEditingController _titleOfEvent;
+  late final TextEditingController _eventDetails;
 
   @override
   void initState() {
-    _notice = TextEditingController();
+    _titleOfEvent = TextEditingController();
+    _eventDetails = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
-    _notice.dispose();
+    _titleOfEvent.dispose();
+    _eventDetails.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final currentAnnouncement = context.getArgument<Notices>();
-    if (currentAnnouncement != null) {
-      _announcement = currentAnnouncement;
-      _notice.text = _announcement!.notice!;
-    }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.cyan[400],
         title: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            'update the notice',
+            'add evenet',
             style: GoogleFonts.bebasNeue(
               fontSize: 35,
               color: Colors.black,
@@ -62,14 +56,15 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
       body: ListView(
         children: [
           const SizedBox(
-            height: 200,
+            height: 150,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: TextField(
-              controller: _notice,
+              autofocus: true,
+              controller: _titleOfEvent,
               decoration: const InputDecoration(
-                //hintText: 'TYPE ANNOUNCEMENT HERE',
+                hintText: 'TYPE TITLE HERE',
                 prefixIcon: Icon(
                   Icons.edit,
                   color: Colors.lightBlue,
@@ -84,27 +79,52 @@ class _EditAnnouncementViewState extends State<EditAnnouncementView> {
                 ),
               ),
               minLines: 1,
-              maxLines: 5,
+              maxLines: 2,
             ),
           ),
           const SizedBox(
-            height: 20,
+            height: 15,
           ),
+
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: TextField(
+              autofocus: false,
+              controller: _eventDetails,
+              decoration: const InputDecoration(
+                hintText: 'TYPE ABOUT EVENT',
+                prefixIcon: Icon(
+                  Icons.note,
+                  color: Colors.lightBlue,
+                ),
+                prefixIconColor: Colors.black,
+                focusedBorder: OutlineInputBorder(),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.cyan),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(50),
+                  ),
+                ),
+              ),
+              minLines: 1,
+              maxLines: 4,
+            ),
+          ),
+
+           const SizedBox(
+            height: 15,
+          ),
+
+
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50),
             child: FloatingActionButton.extended(
               backgroundColor: Colors.cyan.shade300,
               onPressed: () async {
-                if (_notice.text.isNotEmpty) {
-                  currentAnnouncement?.notice = _notice.text;
-                  widget.service.updateNotice(currentAnnouncement!);
-                } else if (_notice.text.isEmpty) {
-                  widget.service.deleteNotice(currentAnnouncement!.id);
-                }
                 Navigator.of(context).pop();
               },
-              label: const Text('EDIT THE ANNOUNCEMENT'),
-              icon: const Icon(Icons.edit_note_rounded),
+              label: const Text('ADD THE EVENT'),
+              icon: const Icon(Icons.done_outline_rounded),
             ),
           )
         ],
