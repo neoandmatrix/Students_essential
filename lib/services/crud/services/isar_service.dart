@@ -53,22 +53,25 @@ class IsarService {
     isar.writeTxn(() async => await isar.events.put(eventTitle));
   }
 
-  Future<void> putEventontent(Events eventContent) async {
+  Future<void> putEventDateTime(Events eventDateTime) async {
+    final isar = await db;
+    isar.writeTxn(() async => await isar.events.put(eventDateTime));
+  }
+
+  Future<void> putEventContent(Events eventContent) async {
     final isar = await db;
     isar.writeTxn(() async => await isar.events.put(eventContent));
   }
 
   Future<void> putTypeOfEvent(Events eventType) async {
     final isar = await db;
-    isar.writeTxn(() async => await isar.events.put(eventType));
+    await isar.writeTxn(() async => await isar.events.put(eventType));
   }
 
-  Future<List<Events?>> getEventTitle(DateTime selectedDateMonthYear) async {
+  Future<void> printEventTitle(DateTime selectedDateMonthYear) async {
     final isar = await db;
-    return isar.events
-        .filter()
-        .dateAndTimeOfEventEqualTo(selectedDateMonthYear)
-        .findAll();
+    final requiredEvent = isar.events.where().findFirst();
+    (requiredEvent.then((value) => print(value!.title)));
   }
 
 //open database
@@ -87,5 +90,3 @@ class IsarService {
     return Future.value(Isar.getInstance('announcement'));
   }
 }
-
-

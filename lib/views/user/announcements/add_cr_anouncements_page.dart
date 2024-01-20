@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:for_students/services/crud/isar_databses/events_data.dart';
 import 'package:for_students/services/crud/isar_databses/notices.dart';
 import 'package:for_students/services/crud/services/isar_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AnnounceToClassView extends StatefulWidget {
   final IsarService service;
-  const AnnounceToClassView({super.key, required this.service});
+  const AnnounceToClassView({
+    super.key,
+    required this.service,
+  });
 
   @override
   State<AnnounceToClassView> createState() => _AnnounceToClassViewState();

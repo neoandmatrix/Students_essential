@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:for_students/services/crud/isar_databses/notices.dart';
+import 'package:for_students/services/crud/isar_databses/events_data.dart';
 import 'package:for_students/services/crud/services/isar_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -61,7 +61,7 @@ class _AddEventViewState extends State<AddEventView> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: TextField(
-              autofocus: true,
+              autofocus: false,
               controller: _titleOfEvent,
               decoration: const InputDecoration(
                 hintText: 'TYPE TITLE HERE',
@@ -85,7 +85,6 @@ class _AddEventViewState extends State<AddEventView> {
           const SizedBox(
             height: 15,
           ),
-
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: TextField(
@@ -110,18 +109,25 @@ class _AddEventViewState extends State<AddEventView> {
               maxLines: 4,
             ),
           ),
-
-           const SizedBox(
+          const SizedBox(
             height: 15,
           ),
-
-
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50),
             child: FloatingActionButton.extended(
               backgroundColor: Colors.cyan.shade300,
               onPressed: () async {
-                Navigator.of(context).pop();
+                if (_titleOfEvent.text.isNotEmpty &&
+                    _eventDetails.text.isNotEmpty) {
+                  final announcedEvent = Events();
+                  announcedEvent.content = _eventDetails.text;
+                  announcedEvent.dateAndTimeOfEvent = DateTime.now();
+                  announcedEvent.title = _titleOfEvent.text;
+                  announcedEvent.eventType = "function";
+
+                  widget.service.putTypeOfEvent(announcedEvent);
+                  //Navigator.of(context).pop();
+                }
               },
               label: const Text('ADD THE EVENT'),
               icon: const Icon(Icons.done_outline_rounded),

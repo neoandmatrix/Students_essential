@@ -157,21 +157,12 @@ class _CalendarGridState extends State<CalendarGrid> {
                     onTap: () => index >= indexOfFirstDayOfTheMonth
                         ? setState(() {
                             _selectedIndex = index;
-                            if (index > _selectedIndex) {
-                              listOfEventTitles = IsarService().getEventTitle(
-                                  _selectedDate.add(Duration(
-                                      days: (index - _selectedIndex))));
-                            } else if (index < _selectedIndex) {
-                              IsarService().getEventTitle(
-                                  _selectedDate.subtract(Duration(
-                                      days: (_selectedIndex - index))));
-                            }
                           })
                         : null,
                     child: Container(
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                            // this line is telling ui that check if the index you are currently building is equal to selected index then give it a special color pink
+                            // this line is telling ui that check if the index you are currently building is equal to selected index then give it a special color blue
                             // otherwise leave it transparent
                             color: index == _selectedIndex
                                 ? const Color.fromARGB(255, 2, 40, 252)
@@ -213,11 +204,16 @@ class _CalendarGridState extends State<CalendarGrid> {
                   ),
                   Row(
                     children: [
-                      const Expanded(
+                      Expanded(
                         flex: 1,
                         child: Padding(
-                          padding: EdgeInsets.only(left: 8),
-                          child: Text('no events today'),
+                          padding: const EdgeInsets.only(left: 8),
+                          child: GestureDetector(
+                            onTap: () {
+                              IsarService().printEventTitle(DateTime.now());
+                            },
+                            child: const Text('no events today'),
+                          ),
                         ),
                       ),
                       Expanded(
