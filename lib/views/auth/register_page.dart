@@ -120,8 +120,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       final confirmedPassword = _confirmPassowrd.text;
 
                       if ((email.isNotEmpty &&
-                              password.isEmpty &&
-                              confirmedPassword.isEmpty) &&
+                              password.isNotEmpty &&
+                              confirmedPassword.isNotEmpty) &&
                           (password == confirmedPassword)) {
                         try {
                           await AuthService.firebase().createUser(

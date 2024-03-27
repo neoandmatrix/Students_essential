@@ -7,7 +7,6 @@ import 'package:for_students/services/auth/auth_provider.dart';
 import 'package:for_students/services/auth/auth_user.dart';
 
 class FirebseAuthProvider implements AuthProvider {
-  
   @override
   Future<AuthUser> createUser({
     required String email,

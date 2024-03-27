@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:for_students/components/ui_components/navigation_bar.dart';
+import 'package:for_students/services/auth/auth_service.dart';
 import 'package:for_students/services/crud/services/isar_service.dart';
 import 'package:for_students/views/auth/register_page.dart';
 import 'package:for_students/views/auth/veify_email_page.dart';
@@ -40,8 +41,26 @@ class MyApp extends StatelessWidget {
       },
       debugShowCheckedModeBanner: false,
       title: 'myapp',
-      home: const MyNavigationBar(),
+      home: const HomePage(),
       theme: ThemeData(useMaterial3: true),
     );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+        future: AuthService.firebase().initalize(),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.done:
+              return const RegisterPage();
+            default:
+              return const CircularProgressIndicator();
+          }
+        });
   }
 }
