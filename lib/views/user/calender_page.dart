@@ -1,3 +1,5 @@
+import 'package:for_students/services/crud/isar_databses/events_data.dart';
+import 'package:for_students/services/crud/services/isar_service.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +11,7 @@ class CalendarGrid extends StatefulWidget {
 }
 
 class _CalendarGridState extends State<CalendarGrid> {
+  late Future<List<Events?>> listOfEventTitles;
   DateTime _selectedDate = DateTime.now();
   int _selectedIndex = 0;
   late int indexOfFirstDayOfTheMonth;
@@ -50,7 +53,7 @@ class _CalendarGridState extends State<CalendarGrid> {
           },
           child: const Icon(
             Icons.arrow_back,
-            color: Colors.black,
+            color: Color.fromARGB(255, 235, 13, 157),
           ),
         ),
         actions: [
@@ -68,30 +71,32 @@ class _CalendarGridState extends State<CalendarGrid> {
               },
               child: const Icon(
                 Icons.arrow_forward,
-                color: Colors.black,
+                color: Color.fromARGB(255, 235, 13, 157),
               ),
             ),
           )
         ],
-        title: Column(
-          children: [
-            const Text(
-              "Calendar",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 22,
-                  color: Colors.black),
-            ),
-            Center(
-              child: Text(
-                DateFormat('MMMM yyyy').format(_selectedDate),
-                style: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 15,
-                    color: Colors.grey),
+        title: Center(
+          child: Column(
+            children: [
+              const Text(
+                "Calendar",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22,
+                    color: Colors.black),
               ),
-            )
-          ],
+              Center(
+                child: Text(
+                  DateFormat('MMMM yyyy').format(_selectedDate),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 15,
+                      color: Colors.grey),
+                ),
+              )
+            ],
+          ),
         ),
       ),
       body: Column(
@@ -118,9 +123,11 @@ class _CalendarGridState extends State<CalendarGrid> {
                   );
                 }),
           ),
+
+          // calender starts from here
           Container(
             decoration: BoxDecoration(
-                color: Colors.white,
+                color: const Color.fromARGB(255, 254, 254, 254),
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(20),
                   bottomRight: Radius.circular(20),
@@ -130,7 +137,7 @@ class _CalendarGridState extends State<CalendarGrid> {
                     color: Colors.black.withOpacity(0.3),
                     spreadRadius: 0.1,
                     blurRadius: 4,
-                    offset: const Offset(0, 3),
+                    offset: const Offset(3, 3),
                   ),
                 ]),
             child: GridView.builder(
@@ -155,7 +162,7 @@ class _CalendarGridState extends State<CalendarGrid> {
                     child: Container(
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                            // this line is telling ui that check if the index you are currently building is equal to selected index then give it a special color pink
+                            // this line is telling ui that check if the index you are currently building is equal to selected index then give it a special color blue
                             // otherwise leave it transparent
                             color: index == _selectedIndex
                                 ? const Color.fromARGB(255, 2, 40, 252)
@@ -183,19 +190,53 @@ class _CalendarGridState extends State<CalendarGrid> {
             height: 5,
           ),
           Expanded(
-            child: Column(
-              children: [
-                Container(
-                  height: 170,
-                  width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.only(bottom: 20, top: 10),
-                  child: const Center(
-                    child:  Image(image: AssetImage('lib/assets/images/no_events.jpg')),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    height: 170,
+                    width: (MediaQuery.of(context).size.width) * 0.95,
+                    padding: const EdgeInsets.only(bottom: 20, top: 8),
+                    child: const Center(
+                      child: Image(
+                          image: AssetImage('lib/assets/images/no_events.jpg')),
+                    ),
                   ),
-                ),
-                const Text("No events today",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600))
-              ],
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 8),
+                          child: GestureDetector(
+                            onTap: () {
+                              IsarService().printEventTitle(DateTime.now());
+                            },
+                            child: const Text('no events today'),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 0,
+                        // TODO : condition based edit and add
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 4),
+                          child: FloatingActionButton(
+                            onPressed: () {
+                              Navigator.of(context).pushNamed(
+                                '/eventAnnouncement',
+                              );
+                            },
+                            backgroundColor: Colors.lightBlueAccent,
+                            elevation: 2,
+                            child: const Icon(Icons.add),
+                          ),
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         ],
@@ -204,6 +245,8 @@ class _CalendarGridState extends State<CalendarGrid> {
   }
 }
 
+// function to generate dates of month
+// logic is that using date time difference method get the number of days of month then using generate fuction genrate that
 List<int> listOfDatesInMonth(DateTime currentDate) {
   var selectedMonthFirstDay =
       DateTime(currentDate.year, currentDate.month, currentDate.day);

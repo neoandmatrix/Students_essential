@@ -25,7 +25,7 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
             this.index = index;
           });
         },
-        height: 70,
+        height: 56,
         backgroundColor: Colors.cyan.shade400,
         destinations: const [
           NavigationDestination(

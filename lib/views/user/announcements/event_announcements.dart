@@ -1,32 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:for_students/services/crud/isar_databses/events_data.dart';
-import 'package:for_students/services/crud/isar_databses/notices.dart';
 import 'package:for_students/services/crud/services/isar_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AnnounceToClassView extends StatefulWidget {
+class AddEventView extends StatefulWidget {
   final IsarService service;
-  const AnnounceToClassView({
-    super.key,
-    required this.service,
-  });
+  const AddEventView({super.key, required this.service});
 
   @override
-  State<AnnounceToClassView> createState() => _AnnounceToClassViewState();
+  State<AddEventView> createState() => _AddEventViewState();
 }
 
-class _AnnounceToClassViewState extends State<AnnounceToClassView> {
-  late final TextEditingController _notice;
+class _AddEventViewState extends State<AddEventView> {
+  late final TextEditingController _titleOfEvent;
+  late final TextEditingController _eventDetails;
 
   @override
   void initState() {
-    _notice = TextEditingController();
+    _titleOfEvent = TextEditingController();
+    _eventDetails = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
-    _notice.dispose();
+    _titleOfEvent.dispose();
+    _eventDetails.dispose();
     super.dispose();
   }
 
@@ -38,7 +37,7 @@ class _AnnounceToClassViewState extends State<AnnounceToClassView> {
         title: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            ' announce',
+            'add evenet',
             style: GoogleFonts.bebasNeue(
               fontSize: 35,
               color: Colors.black,
@@ -57,15 +56,15 @@ class _AnnounceToClassViewState extends State<AnnounceToClassView> {
       body: ListView(
         children: [
           const SizedBox(
-            height: 200,
+            height: 150,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: TextField(
-              autofocus: true,
-              controller: _notice,
+              autofocus: false,
+              controller: _titleOfEvent,
               decoration: const InputDecoration(
-                hintText: 'TYPE ANNOUNCEMENT HERE',
+                hintText: 'TYPE TITLE HERE',
                 prefixIcon: Icon(
                   Icons.edit,
                   color: Colors.lightBlue,
@@ -80,25 +79,57 @@ class _AnnounceToClassViewState extends State<AnnounceToClassView> {
                 ),
               ),
               minLines: 1,
-              maxLines: 5,
+              maxLines: 2,
             ),
           ),
           const SizedBox(
-            height: 20,
+            height: 15,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: TextField(
+              autofocus: false,
+              controller: _eventDetails,
+              decoration: const InputDecoration(
+                hintText: 'TYPE ABOUT EVENT',
+                prefixIcon: Icon(
+                  Icons.note,
+                  color: Colors.lightBlue,
+                ),
+                prefixIconColor: Colors.black,
+                focusedBorder: OutlineInputBorder(),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.cyan),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(50),
+                  ),
+                ),
+              ),
+              minLines: 1,
+              maxLines: 4,
+            ),
+          ),
+          const SizedBox(
+            height: 15,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50),
             child: FloatingActionButton.extended(
               backgroundColor: Colors.cyan.shade300,
               onPressed: () async {
-                if (_notice.text.isNotEmpty) {
-                  // ye khan se aayya?
-                  widget.service.saveNotice(Notices()..notice = _notice.text);
-                }
+                if (_titleOfEvent.text.isNotEmpty &&
+                    _eventDetails.text.isNotEmpty) {
+                  final announcedEvent = Events();
+                  announcedEvent.content = _eventDetails.text;
+                  announcedEvent.dateAndTimeOfEvent = DateTime.now();
+                  announcedEvent.title = _titleOfEvent.text;
+                  announcedEvent.eventType = "function";
 
-                Navigator.of(context).pop();
+                  widget.service.putTypeOfEvent(announcedEvent);
+                  //Navigator.of(context).pop();
+                }
               },
-              label: const Text('ADD THE ANNOUNCEMENT'),
+              label: const Text('ADD THE EVENT'),
               icon: const Icon(Icons.done_outline_rounded),
             ),
           )

@@ -151,18 +151,23 @@ class _MainPageState extends State<MainPage> {
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.lightBlue,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  margin: const EdgeInsets.all(10),
-                  width: 100,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'test item',
-                      style: GoogleFonts.bebasNeue(fontSize: 20),
+                GestureDetector(
+                  onTap: () {
+                    
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.lightBlue,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    margin: const EdgeInsets.all(10),
+                    width: 100,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'test item',
+                        style: GoogleFonts.bebasNeue(fontSize: 20),
+                      ),
                     ),
                   ),
                 ),
