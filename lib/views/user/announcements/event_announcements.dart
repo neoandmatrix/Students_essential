@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AddEventView extends StatefulWidget {
   final IsarService service;
-  const AddEventView({super.key, required this.service});
+  const  AddEventView({super.key, required this.service});
 
   @override
   State<AddEventView> createState() => _AddEventViewState();

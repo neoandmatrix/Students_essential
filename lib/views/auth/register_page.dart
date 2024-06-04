@@ -7,13 +7,14 @@ import 'package:for_students/services/auth/auth_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+  const  RegisterPage({super.key});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+
   late final TextEditingController _email;
   late final TextEditingController _password;
   late final TextEditingController _confirmPassowrd;
@@ -120,8 +121,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       final confirmedPassword = _confirmPassowrd.text;
 
                       if ((email.isNotEmpty &&
-                              password.isNotEmpty &&
-                              confirmedPassword.isNotEmpty) &&
+                              password.isNotEmpty ) &&
                           (password == confirmedPassword)) {
                         try {
                           await AuthService.firebase().createUser(
@@ -130,7 +130,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           );
                           await AuthService.firebase().sendEmailVerification();
                           if (!context.mounted) return;
-                          Navigator.of(context).pushNamed('verifyEmail');
+                          Navigator.of(context).pushNamed('/verifyEmail');
                         } on EmailAlreadyInUseAuthException {
                           if (!context.mounted) return;
                           showDialog(

@@ -3,7 +3,6 @@
 import 'package:for_students/services/auth/auth_user.dart';
 
 abstract class AuthProvider {
-  
   Future<void> initalize();
 
   AuthUser? get currentUser;
@@ -21,4 +20,5 @@ abstract class AuthProvider {
   Future<void> logOut();
   Future<void> sendEmailVerification();
   Future<void> deleteUser();
+  Future<bool> verifyUserEmail();
 }

@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class EditAnnouncementView extends StatefulWidget {
   final IsarService service;
-  const EditAnnouncementView({super.key, required this.service});
+  const  EditAnnouncementView({super.key, required this.service});
 
   @override
   State<EditAnnouncementView> createState() => _EditAnnouncementViewState();

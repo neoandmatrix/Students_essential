@@ -3,7 +3,7 @@ import 'package:for_students/views/user/calender_page.dart';
 import 'package:for_students/views/user/home_page.dart';
 
 class MyNavigationBar extends StatefulWidget {
-  const MyNavigationBar({super.key});
+  const  MyNavigationBar({super.key});
 
   @override
   State<MyNavigationBar> createState() => _MyNavigationBarState();
