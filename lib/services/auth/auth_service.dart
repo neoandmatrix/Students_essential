@@ -50,4 +50,9 @@ class AuthService implements AuthProvider {
   Future<void> sendEmailVerification() async {
     return await provider.sendEmailVerification();
   }
+
+  @override
+  Future<bool> verifyUserEmail() async {
+    return await provider.verifyUserEmail();
+  }
 }

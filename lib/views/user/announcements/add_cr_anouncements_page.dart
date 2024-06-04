@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AnnounceToClassView extends StatefulWidget {
   final IsarService service;
-  const AnnounceToClassView({
+  const  AnnounceToClassView({
     super.key,
     required this.service,
   });

@@ -113,4 +113,20 @@ class FirebseAuthProvider implements AuthProvider {
       throw UserNotFoundAuthException();
     }
   }
+
+  @override
+  Future<bool> verifyUserEmail() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      await user.reload();
+      print(user);
+      if (user.emailVerified) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      throw UserNotFoundAuthException();
+    }
+  }
 }
