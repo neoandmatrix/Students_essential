@@ -5,8 +5,7 @@ A new Flutter project to provide the services most comminly used by students at 
 ## features left to implement 
 
 ### auth
-1. verify email view
-2. reset passord
+1. reset passord
 
 ### usage
 
